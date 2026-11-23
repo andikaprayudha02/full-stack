@@ -1,0 +1,67 @@
+:root {
+    --nds-navy: #0f2a4a;
+    --nds-blue: #1d4ed8;
+    --nds-accent: #38bdf8;
+    --nds-light: #f8fafc;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
+    scroll-behavior: smooth;
+}
+
+.navbar-nds {
+    background-color: rgba(15, 42, 74, 0.96);
+    backdrop-filter: blur(8px);
+}
+
+.hero-section {
+    background: linear-gradient(135deg, var(--nds-navy) 0%, #1e3a8a 100%);
+    color: #ffffff;
+    padding: 100px 0 90px;
+}
+
+.page-header {
+    background: linear-gradient(135deg, var(--nds-navy) 0%, #1e3a8a 100%);
+    color: #ffffff;
+    padding: 70px 0 60px;
+}
+
+.service-card, .portfolio-card, .team-card {
+    transition: all 0.25s ease-in-out;
+    border: 1px solid #e2e8f0;
+}
+
+.service-card:hover, .portfolio-card:hover, .team-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(15, 42, 74, 0.12) !important;
+    border-color: var(--nds-accent);
+}
+
+.icon-box {
+    width: 56px;
+    height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: #eff6ff;
+    color: var(--nds-blue);
+    font-size: 1.6rem;
+}
+
+.avatar-circle {
+    width: 84px;
+    height: 84px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--nds-navy), var(--nds-blue));
+    color: #fff;
+    font-size: 2rem;
+}
+
+.wa-float { z-index: 1050; }
+.max-w-700 { max-width: 700px; }
