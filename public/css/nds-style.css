@@ -63,5 +63,15 @@ body {
     font-size: 2rem;
 }
 
-.wa-float { z-index: 1050; }
-.max-w-700 { max-width: 700px; }
+.wa-float {
+    z-index: 1050;
+    transition: transform 0.2s ease-in-out;
+}
+
+.wa-float:hover {
+    transform: translateY(-3px);
+}
+
+.portfolio-cover {
+    background: linear-gradient(135deg, var(--nds-navy) 0%, #1e3a8a 100%);
+}

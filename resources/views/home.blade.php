@@ -64,42 +64,48 @@
         </div>
     </section>
 
-    <!-- 3. SERVICES -->
+        <!-- 3. SERVICES SECTION (dinamis dari tabel services) -->
     <section id="services" class="py-5">
         <div class="container py-4">
-            <div class="text-center max-w-700 mx-auto mb-5">
+            <div class="text-center mx-auto mb-5" style="max-width: 700px;">
                 <h6 class="text-primary fw-bold text-uppercase">Layanan Unggulan</h6>
                 <h2 class="fw-bold">Solusi Teknologi End-to-End</h2>
-                <p class="text-muted">Kami merancang, membangun, dan mengamankan infrastruktur digital organisasi Anda.</p>
+                <p class="text-muted">
+                    Menampilkan {{ $services->count() }} layanan profesional dari database kami.
+                </p>
             </div>
 
             <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 rounded-4 service-card shadow-sm">
-                        <div class="icon-box mb-3"><i class="bi bi-window-stack"></i></div>
-                        <h5 class="fw-bold">Custom Web Engineering</h5>
-                        <p class="text-muted small mb-0">Pembangunan aplikasi web modern berbasis arsitektur MVC dan REST API yang skalabel.</p>
+                @forelse($services as $service)
+                    <div class="col-md-4">
+                        <div class="card h-100 p-4 rounded-4 service-card shadow-sm">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="icon-box">
+                                    <i class="bi {{ $service->icon ?? 'bi-gear' }}"></i>
+                                </div>
+                                <span class="badge bg-primary-subtle text-primary">
+                                    {{ $service->category->name }}
+                                </span>
+                            </div>
+                            <h5 class="fw-bold">{{ $service->title }}</h5>
+                            <p class="text-muted small">{{ $service->description }}</p>
+                            <a href="#contact" class="small fw-semibold text-decoration-none mt-auto">
+                                Tanya Layanan Ini &rarr;
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 rounded-4 service-card shadow-sm">
-                        <div class="icon-box mb-3"><i class="bi bi-hdd-network"></i></div>
-                        <h5 class="fw-bold">Server & Cloud Architecture</h5>
-                        <p class="text-muted small mb-0">Manajemen server Linux/Windows, virtualisasi container, dan automasi backup berkala.</p>
+                @empty
+                    <div class="col-12">
+                        <div class="text-center py-5 bg-white rounded-4 border border-dashed">
+                            <p class="text-muted mb-0">Belum ada data layanan yang tersedia di database.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 rounded-4 service-card shadow-sm">
-                        <div class="icon-box mb-3"><i class="bi bi-shield-lock"></i></div>
-                        <h5 class="fw-bold">Vulnerability Assessment</h5>
-                        <p class="text-muted small mb-0">Pengujian penetrasi dan audit celah keamanan aplikasi web berstandar OWASP Top 10.</p>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
 
-    <!-- 4. PORTFOLIO -->
+        <!-- 4. PORTFOLIO SECTION (dinamis dari tabel portfolios) -->
     <section id="portfolio" class="py-5 bg-light">
         <div class="container py-4">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5">
@@ -111,39 +117,46 @@
             </div>
 
             <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="card h-100 rounded-4 overflow-hidden portfolio-card shadow-sm">
-                        <div class="bg-secondary bg-opacity-25 d-flex align-items-center justify-content-center" style="height: 220px;">
-                            <i class="bi bi-laptop fs-1 text-secondary"></i>
-                        </div>
-                        <div class="card-body p-4">
-                            <span class="badge bg-primary-subtle text-primary mb-2">Web Application</span>
-                            <h5 class="fw-bold">Portal Akademik Kampus Terpadu</h5>
-                            <p class="text-muted small">
-                                Klien: <strong>Politeknik Nusantara</strong> — Pengembangan sistem informasi manajemen perkuliahan dan modul praktikum.
-                            </p>
+                @forelse($portfolios as $portfolio)
+                    <div class="col-md-4">
+                        <div class="card h-100 rounded-4 overflow-hidden portfolio-card shadow-sm">
+                            <div class="portfolio-cover d-flex align-items-center justify-content-center p-4 text-center" style="height: 180px;">
+                                <span class="text-white fw-bold">{{ $portfolio->title }}</span>
+                            </div>
+                            <div class="card-body p-4 d-flex flex-column">
+                                <div class="d-flex justify-content-between small text-muted mb-2">
+                                    <span class="badge bg-primary-subtle text-primary">{{ $portfolio->category->name }}</span>
+                                    <span>{{ $portfolio->completed_date->format('d M Y') }}</span>
+                                </div>
+                                <h5 class="fw-bold">{{ $portfolio->title }}</h5>
+                                <p class="small fw-medium text-muted mb-2">Klien: {{ $portfolio->client_name }}</p>
+                                <p class="text-muted small">{{ $portfolio->description }}</p>
+
+                                <div class="mt-auto pt-3 border-top">
+                                    @if($portfolio->project_url)
+                                        <a href="{{ $portfolio->project_url }}" target="_blank" rel="noopener"
+                                           class="small fw-semibold text-decoration-none">
+                                            Kunjungi Proyek &nearr;
+                                        </a>
+                                    @else
+                                        <span class="small text-muted fst-italic">Proyek Internal (Non-Publik)</span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card h-100 rounded-4 overflow-hidden portfolio-card shadow-sm">
-                        <div class="bg-secondary bg-opacity-25 d-flex align-items-center justify-content-center" style="height: 220px;">
-                            <i class="bi bi-shield-shaded fs-1 text-secondary"></i>
-                        </div>
-                        <div class="card-body p-4">
-                            <span class="badge bg-danger-subtle text-danger mb-2">Cybersecurity Audit</span>
-                            <h5 class="fw-bold">Audit Keamanan Sistem Pembayaran QRIS</h5>
-                            <p class="text-muted small">
-                                Klien: <strong>PT. FinTech Sriwijaya</strong> — Pengujian penetrasi menyeluruh pada endpoint API transaksi pembayaran.
-                            </p>
+                @empty
+                    <div class="col-12">
+                        <div class="text-center py-5 bg-white rounded-4 border border-dashed">
+                            <p class="text-muted mb-0">Belum ada data portofolio yang ditambahkan.</p>
                         </div>
                     </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
 
-    <!-- 5. CONTACT -->
+        <!-- 5. CONTACT SECTION (simpan ke tabel messages) -->
     <section id="contact" class="py-5">
         <div class="container py-4">
             <div class="row justify-content-center">
@@ -154,27 +167,62 @@
                             <p class="text-muted small">Kirimkan kebutuhan spesifikasi sistem Anda, tim engineer kami akan segera merespons.</p>
                         </div>
 
-                        <form action="#" method="POST">
+                        {{-- Flash message sukses --}}
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="bi bi-check-circle-fill me-1"></i> {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        <form action="{{ route('contact.store') }}" method="POST" novalidate>
                             @csrf
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label small fw-semibold">Nama Lengkap</label>
-                                    <input type="text" class="form-control" placeholder="Nama Anda / Instansi">
+                                    <label for="sender_name" class="form-label small fw-semibold">Nama Lengkap *</label>
+                                    <input type="text" id="sender_name" name="sender_name"
+                                           value="{{ old('sender_name') }}"
+                                           class="form-control @error('sender_name') is-invalid @enderror"
+                                           placeholder="Nama Anda / Instansi">
+                                    @error('sender_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label class="form-label small fw-semibold">Alamat Email</label>
-                                    <input type="email" class="form-control" placeholder="nama@perusahaan.com">
+                                    <label for="sender_email" class="form-label small fw-semibold">Alamat Email *</label>
+                                    <input type="email" id="sender_email" name="sender_email"
+                                           value="{{ old('sender_email') }}"
+                                           class="form-control @error('sender_email') is-invalid @enderror"
+                                           placeholder="nama@perusahaan.com">
+                                    @error('sender_email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
+
                                 <div class="col-12">
-                                    <label class="form-label small fw-semibold">Subjek Kebutuhan</label>
-                                    <input type="text" class="form-control" placeholder="Misal: Pengembangan ERP / Audit Keamanan">
+                                    <label for="subject" class="form-label small fw-semibold">Subjek Kebutuhan *</label>
+                                    <input type="text" id="subject" name="subject"
+                                           value="{{ old('subject') }}"
+                                           class="form-control @error('subject') is-invalid @enderror"
+                                           placeholder="Misal: Pengembangan ERP / Audit Keamanan">
+                                    @error('subject')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
+
                                 <div class="col-12">
-                                    <label class="form-label small fw-semibold">Rincian Pesan</label>
-                                    <textarea class="form-control" rows="4" placeholder="Jelaskan gambaran singkat kebutuhan proyek Anda..."></textarea>
+                                    <label for="message_body" class="form-label small fw-semibold">Rincian Pesan *</label>
+                                    <textarea id="message_body" name="message_body" rows="4"
+                                              class="form-control @error('message_body') is-invalid @enderror"
+                                              placeholder="Jelaskan gambaran singkat kebutuhan proyek Anda...">{{ old('message_body') }}</textarea>
+                                    @error('message_body')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
+
                                 <div class="col-12 text-end">
-                                    <button type="button" class="btn btn-primary px-4 py-2 fw-semibold">
+                                    <button type="submit" class="btn btn-primary px-4 py-2 fw-semibold">
                                         <i class="bi bi-send-fill me-1"></i> Kirim Pesan
                                     </button>
                                 </div>
@@ -185,5 +233,13 @@
             </div>
         </div>
     </section>
-
 @endsection
+
+{{-- Jika validasi gagal, gulir otomatis ke form kontak --}}
+@if($errors->any())
+    @push('scripts')
+        <script>
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        </script>
+    @endpush
+@endif
